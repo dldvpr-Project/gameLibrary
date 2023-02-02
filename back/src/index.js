@@ -1,22 +1,22 @@
 const express = require("express");
-const typeorm = require("typeorm");
+const datasource = require("./utils").datasource;
+const gameController = require("./controller/gameController")
 
 const app = express();
 
-const datasource = new typeorm.DataSource({
-    type: "sqlite",
-    database: "./gameLibrarydb.sqlite",
-    synchronize: true,
-    entities: [require('./entity/Game')],
-});
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
+app.post("/api/game", gameController.create);
+app.post("/api/game", gameController.read)
+app.post("/api/game", gameController.update)
+app.post("/api/game", gameController.delete)
+
 const start = async () => {
     await datasource.initialize();
-    await datasource.getRepository('Game').save({name: 'Duke Nukem'})
     app.listen(3000, () => console.log("Server started on 3000"));
 }
 
