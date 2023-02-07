@@ -1,7 +1,7 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
 module.exports = new EntitySchema({
-    name: "Game",
+    name: "Platform",
     columns: {
         id: {
             primary: true,
@@ -10,14 +10,7 @@ module.exports = new EntitySchema({
         },
         name: {
             type: "text",
-        },
-    },
-    relations: {
-        target: {
-            target: "Platform",
-            type: "many-to-many",
-            joinTable: true,
-            cascade: true,
+            unique: true,
         },
     },
 });
